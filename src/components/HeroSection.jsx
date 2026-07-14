@@ -19,7 +19,7 @@ export default function HeroSection({ setScreen, openAuthModal }) {
         {/* Left Column: Headline & Event Identity */}
         <div>
 
-          {/* Official Institutional Header Bar: UNAM · FI · CI8N · Semana DIE */}
+          {/* Official Institutional Header Bar: UNAM · FI · CI8N · CriptoUNAM · Semana DIE */}
           <div className="hero-logos-bar" style={{
             display: 'inline-flex',
             alignItems: 'center',
@@ -58,6 +58,17 @@ export default function HeroSection({ setScreen, openAuthModal }) {
               src="/CI8N.png" 
               alt="CI8N" 
               title="CI8N"
+              style={{
+                height: '48px',
+                width: 'auto',
+                objectFit: 'contain',
+                display: 'block'
+              }} 
+            />
+            <img 
+              src="/logo-criptounam.png" 
+              alt="CriptoUNAM" 
+              title="CriptoUNAM · Comunidad Web 3.0"
               style={{
                 height: '48px',
                 width: 'auto',

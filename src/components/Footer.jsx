@@ -58,6 +58,17 @@ export default function Footer({ setScreen }) {
                     display: 'block'
                   }}
                 />
+                <img
+                  src="/logo-criptounam.png"
+                  alt="CriptoUNAM"
+                  title="CriptoUNAM · Comunidad Web 3.0"
+                  style={{
+                    height: '24px',
+                    width: 'auto',
+                    objectFit: 'contain',
+                    display: 'block'
+                  }}
+                />
                 <div style={{ width: '1px', height: '20px', background: '#CBD5E1' }} />
                 <img
                   src="/LogoSemanaDIE.png"

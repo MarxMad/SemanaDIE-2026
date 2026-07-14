@@ -151,6 +151,7 @@ export default function PresentationDeckView({ onClose }) {
           }}>
             <img src="/Logo-UNAM.png" alt="UNAM" style={{ height: '22px' }} />
             <img src="/escudofi_azul-modified.png" alt="FI" style={{ height: '22px' }} />
+            <img src="/logo-criptounam.png" alt="CriptoUNAM" style={{ height: '22px' }} />
             <img src="/LogoSemanaDIE.png" alt="DIE" style={{ height: '22px' }} />
           </div>
           <span style={{ fontSize: '14px', fontWeight: 700, color: '#F2C24C' }}>
@@ -285,6 +286,7 @@ export default function PresentationDeckView({ onClose }) {
                 <img src="/Logo-UNAM.png" alt="UNAM" style={{ height: '68px' }} />
                 <img src="/escudofi_azul-modified.png" alt="FI" style={{ height: '68px' }} />
                 <img src="/CI8N.png" alt="CI8N" style={{ height: '62px' }} />
+                <img src="/logo-criptounam.png" alt="CriptoUNAM" style={{ height: '62px' }} />
                 <div style={{ width: '2px', height: '48px', background: '#CBD5E1' }} />
                 <img src="/LogoSemanaDIE.png" alt="DIE" style={{ height: '68px' }} />
               </div>
@@ -739,6 +741,7 @@ export default function PresentationDeckView({ onClose }) {
                   <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
                     <img src="/Logo-UNAM.png" alt="UNAM" style={{ height: '40px' }} />
                     <img src="/escudofi_azul-modified.png" alt="FI" style={{ height: '40px' }} />
+                    <img src="/logo-criptounam.png" alt="CriptoUNAM" style={{ height: '40px' }} />
                     <img src="/LogoSemanaDIE.png" alt="DIE" style={{ height: '40px' }} />
                   </div>
                   <div style={{ padding: '6px 14px', borderRadius: '999px', background: '#F2C24C', color: '#0A192F', fontWeight: 800, fontSize: '12px' }}>
@@ -843,8 +846,11 @@ export default function PresentationDeckView({ onClose }) {
             <div style={{ display: 'flex', gap: '24px', flex: 1, width: '100%' }}>
               <div style={{ display: 'flex', flexDirection: 'column', flex: 1, background: flyerTheme === 'light' ? '#FFFFFF' : '#0A192F', color: flyerTheme === 'light' ? '#0A192F' : '#FFFFFF', borderRadius: '20px', padding: '36px', border: '2px solid #38BDF8', position: 'relative' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '22px' }}>
-                  <div style={{ fontSize: '14px', color: '#38BDF8', fontWeight: 800, letterSpacing: '0.08em' }}>
-                    CONVOCATORIA HACKATHON OFICIAL
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
+                    <img src="/Logo-UNAM.png" alt="UNAM" style={{ height: '36px' }} />
+                    <img src="/escudofi_azul-modified.png" alt="FI" style={{ height: '36px' }} />
+                    <img src="/logo-criptounam.png" alt="CriptoUNAM" style={{ height: '36px' }} />
+                    <img src="/LogoSemanaDIE.png" alt="DIE" style={{ height: '36px' }} />
                   </div>
                   <div style={{ padding: '6px 14px', borderRadius: '999px', background: '#38BDF8', color: '#0A192F', fontWeight: 800, fontSize: '12px' }}>
                     {flyers.hackathon.tag}

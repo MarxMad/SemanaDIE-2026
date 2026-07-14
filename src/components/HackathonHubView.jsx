@@ -61,6 +61,25 @@ export default function HackathonHubView({ setScreen }) {
             <div style={{
               display: 'inline-flex',
               alignItems: 'center',
+              flexWrap: 'wrap',
+              gap: '12px',
+              background: '#FFFFFF',
+              padding: '10px 20px',
+              borderRadius: '14px',
+              marginBottom: '20px',
+              border: '1px solid rgba(213, 159, 15, 0.35)'
+            }}>
+              <img src="/Logo-UNAM.png" alt="UNAM" title="UNAM" style={{ height: '36px', width: 'auto', objectFit: 'contain' }} />
+              <img src="/escudofi_azul-modified.png" alt="Facultad de Ingeniería" title="Facultad de Ingeniería" style={{ height: '36px', width: 'auto', objectFit: 'contain' }} />
+              <img src="/CI8N.png" alt="CI8N" title="CI8N" style={{ height: '34px', width: 'auto', objectFit: 'contain' }} />
+              <img src="/logo-criptounam.png" alt="CriptoUNAM" title="CriptoUNAM · Comunidad Web 3.0" style={{ height: '34px', width: 'auto', objectFit: 'contain' }} />
+              <div style={{ width: '1px', height: '28px', background: '#CBD5E1' }} />
+              <img src="/LogoSemanaDIE.png" alt="Semana DIE" title="Semana DIE 2026" style={{ height: '36px', width: 'auto', objectFit: 'contain' }} />
+            </div>
+
+            <div style={{
+              display: 'inline-flex',
+              alignItems: 'center',
               gap: '8px',
               padding: '6px 14px',
               borderRadius: '999px',

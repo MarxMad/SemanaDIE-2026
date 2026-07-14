@@ -120,6 +120,17 @@ export default function Navbar({
                   display: 'block'
                 }}
               />
+              <img
+                src="/logo-criptounam.png"
+                alt="CriptoUNAM"
+                title="CriptoUNAM · Comunidad Web 3.0"
+                style={{
+                  height: '28px',
+                  width: 'auto',
+                  objectFit: 'contain',
+                  display: 'block'
+                }}
+              />
               <div style={{ width: '1px', height: '24px', background: '#CBD5E1' }} />
               <img
                 src="/LogoSemanaDIE.png"

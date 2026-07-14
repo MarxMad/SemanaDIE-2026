@@ -37,6 +37,24 @@ export default function TracksSection({ setScreen }) {
             <div className="section-tag">
               CATEGORÍAS DE COMPETENCIA
             </div>
+            <div style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              flexWrap: 'wrap',
+              gap: '10px',
+              background: '#FFFFFF',
+              padding: '8px 16px',
+              borderRadius: '12px',
+              marginBottom: '16px',
+              border: '1px solid rgba(213, 159, 15, 0.35)'
+            }}>
+              <img src="/Logo-UNAM.png" alt="UNAM" style={{ height: '28px', width: 'auto', objectFit: 'contain' }} />
+              <img src="/escudofi_azul-modified.png" alt="Facultad de Ingeniería" style={{ height: '28px', width: 'auto', objectFit: 'contain' }} />
+              <img src="/CI8N.png" alt="CI8N" style={{ height: '26px', width: 'auto', objectFit: 'contain' }} />
+              <img src="/logo-criptounam.png" alt="CriptoUNAM" title="CriptoUNAM · Comunidad Web 3.0" style={{ height: '26px', width: 'auto', objectFit: 'contain' }} />
+              <div style={{ width: '1px', height: '22px', background: '#CBD5E1' }} />
+              <img src="/LogoSemanaDIE.png" alt="Semana DIE" style={{ height: '28px', width: 'auto', objectFit: 'contain' }} />
+            </div>
             <h2 style={{
               fontSize: 'clamp(32px, 3.8vw, 44px)',
               fontWeight: 800,
