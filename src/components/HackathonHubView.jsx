@@ -55,9 +55,13 @@ export default function HackathonHubView({ setScreen }) {
           marginBottom: '48px',
           position: 'relative',
           overflow: 'hidden',
-          boxShadow: '0 20px 50px rgba(10, 25, 47, 0.15)'
+          boxShadow: '0 20px 50px rgba(10, 25, 47, 0.15)',
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+          gap: '40px',
+          alignItems: 'center'
         }}>
-          <div style={{ maxWidth: '780px', position: 'relative', zIndex: 2 }}>
+          <div style={{ position: 'relative', zIndex: 2 }}>
             <div style={{
               display: 'inline-flex',
               alignItems: 'center',
@@ -72,7 +76,6 @@ export default function HackathonHubView({ setScreen }) {
               <img src="/Logo-UNAM.png" alt="UNAM" title="UNAM" style={{ height: '36px', width: 'auto', objectFit: 'contain' }} />
               <img src="/escudofi_azul-modified.png" alt="Facultad de Ingeniería" title="Facultad de Ingeniería" style={{ height: '36px', width: 'auto', objectFit: 'contain' }} />
               <img src="/CI8N.png" alt="CI8N" title="CI8N" style={{ height: '34px', width: 'auto', objectFit: 'contain' }} />
-              <img src="/logo-criptounam.png" alt="CriptoUNAM" title="CriptoUNAM · Comunidad Web 3.0" style={{ height: '34px', width: 'auto', objectFit: 'contain' }} />
               <div style={{ width: '1px', height: '28px', background: '#CBD5E1' }} />
               <img src="/LogoSemanaDIE.png" alt="Semana DIE" title="Semana DIE 2026" style={{ height: '36px', width: 'auto', objectFit: 'contain' }} />
             </div>
@@ -150,6 +153,66 @@ export default function HackathonHubView({ setScreen }) {
                 <Users size={18} /> Ver Equipos Formados
               </button>
             </div>
+          </div>
+
+          {/* CriptoUNAM — Organizador destacado del Hackathon */}
+          <div style={{
+            position: 'relative',
+            zIndex: 2,
+            background: '#FFFFFF',
+            borderRadius: '24px',
+            padding: '36px 32px',
+            textAlign: 'center',
+            border: '2px solid rgba(213, 159, 15, 0.5)',
+            boxShadow: '0 16px 48px rgba(0, 0, 0, 0.25)'
+          }}>
+            <div style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px',
+              padding: '6px 16px',
+              borderRadius: '999px',
+              background: 'linear-gradient(135deg, rgba(56, 189, 248, 0.15), rgba(213, 159, 15, 0.15))',
+              border: '1px solid rgba(213, 159, 15, 0.4)',
+              color: '#0A192F',
+              fontSize: '11px',
+              fontWeight: 800,
+              letterSpacing: '0.1em',
+              marginBottom: '24px'
+            }}>
+              <Sparkles size={14} color="#D59F0F" /> ORGANIZADOR OFICIAL DEL HACKATHON
+            </div>
+
+            <img
+              src="/logo-criptounam.png"
+              alt="CriptoUNAM"
+              style={{
+                width: 'min(100%, 320px)',
+                height: 'auto',
+                objectFit: 'contain',
+                display: 'block',
+                margin: '0 auto 20px'
+              }}
+            />
+
+            <h2 style={{
+              fontSize: 'clamp(20px, 2.5vw, 26px)',
+              fontWeight: 900,
+              color: '#0A192F',
+              lineHeight: 1.25,
+              marginBottom: '10px'
+            }}>
+              Somos organizadores del Hackathon Semana DIE 2026
+            </h2>
+
+            <p style={{
+              fontSize: '15px',
+              color: '#475569',
+              lineHeight: 1.6,
+              margin: 0
+            }}>
+              <strong style={{ color: '#0A192F' }}>CriptoUNAM</strong> impulsa la innovación Web 3.0 en la comunidad universitaria FI UNAM, co-organizando esta edición del hackathon de 48 horas.
+            </p>
           </div>
         </div>
 
