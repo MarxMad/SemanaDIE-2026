@@ -2,11 +2,10 @@ import React from 'react';
 import { 
   ArrowRight, 
   Calendar, 
-  MapPin,
-  Presentation
+  MapPin
 } from 'lucide-react';
 
-export default function HeroSection({ setScreen, openAuthModal, openPPTMode }) {
+export default function HeroSection({ setScreen, openAuthModal }) {
   return (
     <section className="hero-bg" style={{
       padding: '70px 24px 80px',
@@ -168,24 +167,6 @@ export default function HeroSection({ setScreen, openAuthModal, openPPTMode }) {
               style={{ padding: '15px 28px', fontSize: '15px' }}
             >
               Explorar Equipos & Tracks
-            </button>
-            <button
-              onClick={openPPTMode}
-              style={{
-                padding: '15px 26px',
-                fontSize: '15px',
-                borderRadius: '12px',
-                background: 'rgba(213, 159, 15, 0.15)',
-                border: '1.5px solid rgba(213, 159, 15, 0.45)',
-                color: '#F2C24C',
-                fontWeight: 700,
-                cursor: 'pointer',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '8px'
-              }}
-            >
-              <Presentation size={18} /> Dossier PPT · Patrocinios
             </button>
           </div>
         </div>

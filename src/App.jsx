@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Navbar from './components/Navbar';
 import HeroSection from './components/HeroSection';
 import SponsorsTicker from './components/SponsorsTicker';
@@ -20,9 +20,13 @@ import AuthModal from './components/AuthModal';
 import Footer from './components/Footer';
 
 import { INITIAL_TEAMS, INITIAL_PROJECTS } from './data/platformData';
+import { isPrivateDossierAccess, clearPrivateDossierRoute } from './config/privateRoutes';
 
 export default function App() {
-  const [currentScreen, setCurrentScreen] = useState('landing'); // 'landing' | 'equipos' | 'galeria' | 'subir'
+  const [currentScreen, setCurrentScreen] = useState(() =>
+    isPrivateDossierAccess() ? 'aportaciones' : 'landing'
+  ); // 'landing' | 'equipos' | 'galeria' | 'subir' | 'aportaciones'
+  const [isPrivatePortal, setIsPrivatePortal] = useState(() => isPrivateDossierAccess());
   const [isLoggedIn, setIsLoggedIn] = useState(false); // Inicia en falso para que el usuario pueda probar el flujo simulado de inicio de sesión
   const [userProfile, setUserProfile] = useState({
     name: 'Valeria Torres Méndez',
@@ -44,6 +48,39 @@ export default function App() {
   const [authModalOpen, setAuthModalOpen] = useState(false);
   const [authMode, setAuthMode] = useState('login'); // 'login' | 'register'
   const [isPPTModeOpen, setIsPPTModeOpen] = useState(false);
+
+  useEffect(() => {
+    const syncPrivateRoute = () => {
+      const isPrivate = isPrivateDossierAccess();
+      setIsPrivatePortal(isPrivate);
+      if (isPrivate) {
+        setCurrentScreen('aportaciones');
+      }
+    };
+
+    syncPrivateRoute();
+    window.addEventListener('hashchange', syncPrivateRoute);
+    window.addEventListener('popstate', syncPrivateRoute);
+
+    return () => {
+      window.removeEventListener('hashchange', syncPrivateRoute);
+      window.removeEventListener('popstate', syncPrivateRoute);
+    };
+  }, []);
+
+  const navigateToScreen = useCallback((screen) => {
+    if (screen !== 'aportaciones' && isPrivatePortal) {
+      clearPrivateDossierRoute();
+      setIsPrivatePortal(false);
+    }
+    setCurrentScreen(screen);
+  }, [isPrivatePortal]);
+
+  const openPPTMode = useCallback(() => {
+    if (isPrivatePortal) {
+      setIsPPTModeOpen(true);
+    }
+  }, [isPrivatePortal]);
 
   const handleCreateTeam = (newTeam) => {
     setTeams([newTeam, ...teams]);
@@ -68,13 +105,12 @@ export default function App() {
       {/* Sticky Glass Navbar */}
       <Navbar
         currentScreen={currentScreen}
-        setScreen={setCurrentScreen}
+        setScreen={navigateToScreen}
         isLoggedIn={isLoggedIn}
         setIsLoggedIn={setIsLoggedIn}
         userProfile={userProfile}
         openAuthModal={openAuthModal}
         openProfileModal={() => setProfileModalOpen(true)}
-        openPPTMode={() => setIsPPTModeOpen(true)}
       />
 
       {/* Main Content Area */}
@@ -82,18 +118,17 @@ export default function App() {
         {currentScreen === 'landing' && (
           <>
             <HeroSection
-              setScreen={setCurrentScreen}
+              setScreen={navigateToScreen}
               openAuthModal={openAuthModal}
-              openPPTMode={() => setIsPPTModeOpen(true)}
             />
             <SponsorsTicker />
             <AboutSection />
             <ObjectivesSection />
             <ActivitiesSection />
-            <TracksSection setScreen={setCurrentScreen} />
+            <TracksSection setScreen={navigateToScreen} />
             <ScheduleSection />
             <HowToParticipateSection
-              setScreen={setCurrentScreen}
+              setScreen={navigateToScreen}
               openAuthModal={openAuthModal}
             />
             <ContactSection />
@@ -102,14 +137,14 @@ export default function App() {
 
         {currentScreen === 'hackathon' && (
           <HackathonHubView
-            setScreen={setCurrentScreen}
+            setScreen={navigateToScreen}
           />
         )}
 
-        {currentScreen === 'aportaciones' && (
+        {currentScreen === 'aportaciones' && isPrivatePortal && (
           <SponsorshipTiersSection
-            setScreen={setCurrentScreen}
-            openPPTMode={() => setIsPPTModeOpen(true)}
+            setScreen={navigateToScreen}
+            openPPTMode={openPPTMode}
           />
         )}
 
@@ -130,7 +165,7 @@ export default function App() {
           <UploadProjectView
             teams={teams}
             onUploadProject={handleUploadProject}
-            setScreen={setCurrentScreen}
+            setScreen={navigateToScreen}
           />
         )}
       </main>
@@ -139,7 +174,7 @@ export default function App() {
       <ProfileModal
         isOpen={profileModalOpen}
         onClose={() => setProfileModalOpen(false)}
-        setScreen={setCurrentScreen}
+        setScreen={navigateToScreen}
         userProfile={userProfile}
         onLogout={() => setIsLoggedIn(false)}
       />
@@ -152,12 +187,12 @@ export default function App() {
         onLoginSuccess={handleLoginSuccess}
       />
 
-      {isPPTModeOpen && (
+      {isPrivatePortal && isPPTModeOpen && (
         <PresentationDeckView onClose={() => setIsPPTModeOpen(false)} />
       )}
 
       {/* Footer */}
-      <Footer setScreen={setCurrentScreen} />
+      <Footer setScreen={navigateToScreen} />
     </div>
   );
 }

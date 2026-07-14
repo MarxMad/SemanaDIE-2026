@@ -11,8 +11,7 @@ import {
   Layers,
   Building2,
   Menu,
-  X,
-  Presentation
+  X
 } from 'lucide-react';
 
 export default function Navbar({ 
@@ -22,8 +21,7 @@ export default function Navbar({
   setIsLoggedIn, 
   userProfile,
   openAuthModal, 
-  openProfileModal,
-  openPPTMode
+  openProfileModal
 }) {
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
 
