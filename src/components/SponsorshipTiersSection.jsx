@@ -1,8 +1,18 @@
 import React, { useState } from 'react';
-import { Check, X, Shield, Award, Sparkles, Wifi, Zap, Layout, Monitor, FileText, Users, ArrowRight, Presentation } from 'lucide-react';
+import { Check, X, Shield, Award, Sparkles, Wifi, Zap, Layout, Monitor, FileText, Users, ArrowRight, Presentation, Globe } from 'lucide-react';
+import { SPONSORSHIP_COPY, TAX_DISCLAIMER } from '../data/sponsorshipCopy';
+import { formatPriceWithIva } from '../data/sponsorshipTiers';
+import SponsorshipPhotoGallery from './SponsorshipPhotoGallery';
 
-export default function SponsorshipTiersSection({ setScreen, openPPTMode }) {
-  const [activeTab, setActiveTab] = useState('tabla'); // 'tabla' | 'stand'
+const BENEFIT_KEYS = [
+  'webLogo', 'digitalChannels', 'auditoriumPresence', 'emailFlyer',
+  'socialMediaPost', 'stand2x1', 'stand3x1', 'keynoteSpace'
+];
+
+export default function SponsorshipTiersSection({ setScreen, openPPTMode, lang = 'es', setLang }) {
+  const [activeTab, setActiveTab] = useState('tabla');
+  const t = SPONSORSHIP_COPY[lang];
+  const benefitRows = BENEFIT_KEYS.map((key, i) => ({ key, label: t.benefitRows[i] }));
 
   const tiers = [
     {
@@ -76,6 +86,7 @@ export default function SponsorshipTiersSection({ setScreen, openPPTMode }) {
     },
     {
       name: 'Todo Incluido',
+      nameEn: 'All Inclusive',
       price: 'A la medida',
       color: '#0A192F',
       badgeBg: '#FEF3C7',
@@ -93,16 +104,29 @@ export default function SponsorshipTiersSection({ setScreen, openPPTMode }) {
     }
   ];
 
-  const benefitRows = [
-    { key: 'webLogo', label: 'Logotipo en página web del evento' },
-    { key: 'digitalChannels', label: 'Logotipo en canales de comunicación digitales (FI UNAM)' },
-    { key: 'auditoriumPresence', label: 'Presencia digital al inicio de cada evento en auditorio' },
-    { key: 'emailFlyer', label: 'Flyer de agradecimiento por correo' },
-    { key: 'socialMediaPost', label: 'Posteo de agradecimiento en redes sociales' },
-    { key: 'stand2x1', label: 'Stand de 2x1 metros' },
-    { key: 'stand3x1', label: 'Stand de 3x1 metros' },
-    { key: 'keynoteSpace', label: 'Espacio para una conferencia magistral' }
-  ];
+  const tierLabel = (tier) => (lang === 'en' && tier.nameEn ? tier.nameEn : tier.name);
+  const tierPrice = (tier) => {
+    if (tier.name === 'Todo Incluido') return lang === 'en' ? t.customPrice : 'A la medida';
+    return formatPriceWithIva(tier.price);
+  };
+
+  const taxBanner = (
+    <div style={{
+      display: 'flex',
+      alignItems: 'flex-start',
+      gap: '12px',
+      padding: '16px 20px',
+      borderRadius: '14px',
+      background: '#FFFBEB',
+      border: '1px solid #FDE68A',
+      marginBottom: '32px'
+    }}>
+      <Shield size={20} color="#B45309" style={{ flexShrink: 0, marginTop: '2px' }} />
+      <p style={{ margin: 0, fontSize: '14px', color: '#92400E', lineHeight: 1.6, fontWeight: 600 }}>
+        {TAX_DISCLAIMER[lang]}
+      </p>
+    </div>
+  );
 
   return (
     <section id="patrocinios" style={{
@@ -131,11 +155,31 @@ export default function SponsorshipTiersSection({ setScreen, openPPTMode }) {
                 cursor: 'pointer'
               }}
             >
-              ← Volver al Inicio
+              {t.backHome}
             </button>
           ) : <div />}
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
+            {setLang && (
+              <button
+                onClick={() => setLang(lang === 'es' ? 'en' : 'es')}
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  padding: '6px 14px',
+                  borderRadius: '999px',
+                  background: '#EFF6FF',
+                  border: '1px solid #BFDBFE',
+                  color: '#1E40AF',
+                  fontSize: '12px',
+                  fontWeight: 800,
+                  cursor: 'pointer'
+                }}
+              >
+                <Globe size={14} /> {t.langLabel} · {t.langToggle}
+              </button>
+            )}
             <span style={{
               display: 'inline-flex',
               alignItems: 'center',
@@ -148,10 +192,12 @@ export default function SponsorshipTiersSection({ setScreen, openPPTMode }) {
               fontSize: '12px',
               fontWeight: 800
             }}>
-              🔒 PORTAL PRIVADO DE COMITÉ · SALES DECK 2026
+              {t.privateBadge}
             </span>
           </div>
         </div>
+
+        {taxBanner}
 
         {/* COMBINED SALES EXECUTIVE PRESENTATION DECK BANNER */}
         <div style={{
@@ -169,13 +215,13 @@ export default function SponsorshipTiersSection({ setScreen, openPPTMode }) {
         }}>
           <div>
             <div style={{ fontSize: '13px', color: '#F2C24C', fontWeight: 800, letterSpacing: '0.08em', marginBottom: '10px' }}>
-              DOSSIER EJECUTIVO DE VENTAS · SEMANA DIE 2026
+              {t.deckEyebrow}
             </div>
             <h2 style={{ fontSize: '32px', fontWeight: 900, marginBottom: '14px', lineHeight: 1.2 }}>
-              Presentación Comercial para Patrocinadores
+              {t.deckTitle}
             </h2>
             <p style={{ fontSize: '15px', color: '#CBD5E1', lineHeight: 1.6, marginBottom: '22px' }}>
-              Explora las 12 diapositivas ejecutivas a pantalla completa con cifras UNAM, beneficios por tier, especificaciones de stand 3x1 y 2x1, y flyers de difusión.
+              {t.deckDesc}
             </p>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
               <span style={{ padding: '4px 10px', borderRadius: '6px', background: 'rgba(255,255,255,0.1)', fontSize: '12px', fontWeight: 700 }}>1. Portada UNAM</span>
@@ -199,7 +245,7 @@ export default function SponsorshipTiersSection({ setScreen, openPPTMode }) {
             justifyContent: 'center'
           }}>
             <div style={{ fontSize: '14px', fontWeight: 800, color: '#F2C24C', marginBottom: '16px' }}>
-              MODO PRESENTACIÓN PPT
+              {t.pptMode}
             </div>
             {openPPTMode && (
               <button
@@ -221,14 +267,20 @@ export default function SponsorshipTiersSection({ setScreen, openPPTMode }) {
                   boxShadow: '0 8px 25px rgba(242, 194, 76, 0.35)'
                 }}
               >
-                <Presentation size={20} /> ▶ Iniciar Deck PPT (12 Slides)
+                <Presentation size={20} /> {t.startDeck}
               </button>
             )}
             <div style={{ fontSize: '12.5px', color: '#94A3B8', marginTop: '12px' }}>
-              Compatible con pantalla completa y navegación con flechas
+              {t.pptHint}
             </div>
           </div>
         </div>
+
+        <SponsorshipPhotoGallery
+          lang={lang}
+          title={t.galleryTitle}
+          description={t.galleryDesc}
+        />
 
         {/* Header */}
         <div style={{ textAlign: 'center', marginBottom: '48px' }}>
@@ -247,7 +299,7 @@ export default function SponsorshipTiersSection({ setScreen, openPPTMode }) {
             marginBottom: '16px'
           }}>
             <Award size={14} color="#D59F0F" />
-            VINCULACIÓN E INDUSTRIA · 21 AL 24 DE SEPTIEMBRE 2026
+            {t.sectionTag}
           </div>
           <h2 style={{
             fontSize: 'clamp(32px, 4vw, 44px)',
@@ -255,7 +307,7 @@ export default function SponsorshipTiersSection({ setScreen, openPPTMode }) {
             color: '#0A192F',
             marginBottom: '16px'
           }}>
-            Tipos de Aportación y Especificaciones de Stand
+            {t.mainTitle}
           </h2>
           <p style={{
             fontSize: '17px',
@@ -264,7 +316,7 @@ export default function SponsorshipTiersSection({ setScreen, openPPTMode }) {
             margin: '0 auto',
             lineHeight: 1.6
           }}>
-            Conoce los paquetes institucionales de patrocinio y las facilidades para estantes y conferencias magistrales en la Facultad de Ingeniería UNAM.
+            {t.mainDesc}
           </p>
 
           {/* Toggle Tabs */}
@@ -296,7 +348,7 @@ export default function SponsorshipTiersSection({ setScreen, openPPTMode }) {
                 gap: '8px'
               }}
             >
-              <Award size={16} /> Paquetes Institucionales
+              <Award size={16} /> {t.tabs.tabla}
             </button>
             <button
               onClick={() => setActiveTab('hackathon')}
@@ -315,7 +367,7 @@ export default function SponsorshipTiersSection({ setScreen, openPPTMode }) {
                 gap: '8px'
               }}
             >
-              <Zap size={16} /> Paquetes Hackathon 48H
+              <Zap size={16} /> {t.tabs.hackathon}
             </button>
             <button
               onClick={() => setActiveTab('talleres')}
@@ -334,7 +386,7 @@ export default function SponsorshipTiersSection({ setScreen, openPPTMode }) {
                 gap: '8px'
               }}
             >
-              <Monitor size={16} /> Talleres & Masterclass
+              <Monitor size={16} /> {t.tabs.talleres}
             </button>
             <button
               onClick={() => setActiveTab('conceptos')}
@@ -353,7 +405,7 @@ export default function SponsorshipTiersSection({ setScreen, openPPTMode }) {
                 gap: '8px'
               }}
             >
-              <Sparkles size={16} /> Conceptos a la Carta
+              <Sparkles size={16} /> {t.tabs.conceptos}
             </button>
             <button
               onClick={() => setActiveTab('stand')}
@@ -372,7 +424,7 @@ export default function SponsorshipTiersSection({ setScreen, openPPTMode }) {
                 gap: '8px'
               }}
             >
-              <Layout size={16} /> Especificaciones Stand
+              <Layout size={16} /> {t.tabs.stand}
             </button>
           </div>
         </div>
@@ -391,7 +443,7 @@ export default function SponsorshipTiersSection({ setScreen, openPPTMode }) {
                 <thead>
                   <tr style={{ background: '#0A192F', color: '#FFFFFF' }}>
                     <th style={{ padding: '24px 28px', fontSize: '15px', fontWeight: 800, minWidth: '280px' }}>
-                      Concepto / Beneficio
+                      {t.tableConcept}
                     </th>
                     {tiers.map((tier, i) => (
                       <th key={i} style={{
@@ -409,14 +461,14 @@ export default function SponsorshipTiersSection({ setScreen, openPPTMode }) {
                             letterSpacing: '0.08em',
                             marginBottom: '4px'
                           }}>
-                            ★ RECOMENDADO
+                            {t.recommended}
                           </div>
                         )}
                         <div style={{ fontSize: '18px', fontWeight: 800, color: '#FFFFFF' }}>
-                          {tier.name}
+                          {tierLabel(tier)}
                         </div>
                         <div style={{ fontSize: '14px', color: tier.name === 'Puma Oro' ? '#F2C24C' : '#94A3B8', marginTop: '4px' }}>
-                          {tier.price}
+                          {tierPrice(tier)}
                         </div>
                       </th>
                     ))}
@@ -471,6 +523,8 @@ export default function SponsorshipTiersSection({ setScreen, openPPTMode }) {
               </table>
             </div>
 
+            {taxBanner}
+
             {/* Bottom Note */}
             <div style={{
               display: 'flex',
@@ -485,7 +539,7 @@ export default function SponsorshipTiersSection({ setScreen, openPPTMode }) {
               border: '1px solid #E2E8F0'
             }}>
               <div style={{ fontSize: '14px', color: '#475569' }}>
-                ¿Deseas personalizar un paquete de aportación o patrocinio para tu organización?
+                {t.ctaQuestion}
               </div>
               <a
                 href="mailto:transformaciondigital@unam.mx?subject=Información%20Aportación%20Semana%20DIE%202026"
@@ -502,7 +556,7 @@ export default function SponsorshipTiersSection({ setScreen, openPPTMode }) {
                   textDecoration: 'none'
                 }}
               >
-                Solicitar Dossier & Cotización <ArrowRight size={16} />
+                {t.ctaButton} <ArrowRight size={16} />
               </a>
             </div>
           </div>
@@ -594,7 +648,7 @@ export default function SponsorshipTiersSection({ setScreen, openPPTMode }) {
                         {item.tag}
                       </span>
                       <span style={{ fontSize: '18px', fontWeight: 800, color: '#0A192F' }}>
-                        {item.price}
+                        {formatPriceWithIva(item.price)}
                       </span>
                     </div>
                     <h4 style={{ fontSize: '20px', fontWeight: 800, color: '#0A192F', marginBottom: '10px' }}>
@@ -722,7 +776,7 @@ export default function SponsorshipTiersSection({ setScreen, openPPTMode }) {
                         {item.tag}
                       </span>
                       <span style={{ fontSize: '18px', fontWeight: 800, color: '#0A192F' }}>
-                        {item.price}
+                        {formatPriceWithIva(item.price)}
                       </span>
                     </div>
                     <h4 style={{ fontSize: '20px', fontWeight: 800, color: '#0A192F', marginBottom: '10px' }}>
@@ -831,7 +885,7 @@ export default function SponsorshipTiersSection({ setScreen, openPPTMode }) {
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
                       <span style={{ fontSize: '24px' }}>{c.icon}</span>
                       <span style={{ fontSize: '15px', fontWeight: 800, color: '#D59F0F', background: '#FEF3C7', padding: '4px 10px', borderRadius: '8px' }}>
-                        {c.price}
+                        {formatPriceWithIva(c.price)}
                       </span>
                     </div>
                     <h4 style={{ fontSize: '17px', fontWeight: 800, color: '#0A192F', marginBottom: '8px' }}>

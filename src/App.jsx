@@ -48,6 +48,7 @@ export default function App() {
   const [authModalOpen, setAuthModalOpen] = useState(false);
   const [authMode, setAuthMode] = useState('login'); // 'login' | 'register'
   const [isPPTModeOpen, setIsPPTModeOpen] = useState(false);
+  const [sponsorshipLang, setSponsorshipLang] = useState('es');
 
   useEffect(() => {
     const syncPrivateRoute = () => {
@@ -145,6 +146,8 @@ export default function App() {
           <SponsorshipTiersSection
             setScreen={navigateToScreen}
             openPPTMode={openPPTMode}
+            lang={sponsorshipLang}
+            setLang={setSponsorshipLang}
           />
         )}
 
@@ -188,7 +191,11 @@ export default function App() {
       />
 
       {isPrivatePortal && isPPTModeOpen && (
-        <PresentationDeckView onClose={() => setIsPPTModeOpen(false)} />
+        <PresentationDeckView
+          onClose={() => setIsPPTModeOpen(false)}
+          lang={sponsorshipLang}
+          setLang={setSponsorshipLang}
+        />
       )}
 
       {/* Footer */}
