@@ -128,9 +128,6 @@ export default function PresentationDeckView({ onClose, lang = 'es', setLang }) 
             </button>
           )}
 
-          <span style={{ fontSize: '13px', color: '#94A3B8', fontWeight: 600 }}>
-            {ppt.ui.slide} {currentSlide + 1} / {totalSlides}
-          </span>
           <button
             onClick={toggleFullScreen}
             style={{
@@ -648,19 +645,15 @@ export default function PresentationDeckView({ onClose, lang = 'es', setLang }) 
           {/* SLIDE 11: MAPA EXPODIE */}
           {currentSlide === 11 && <ExpoMapSlide mapCopy={mapCopy} />}
 
-          {/* Slide Footer / Numbering inside card */}
+          {/* Slide Footer */}
           <div style={{
             borderTop: '1px solid #E2E8F0',
             paddingTop: '16px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
             fontSize: '13px',
             color: '#64748B',
             fontWeight: 600
           }}>
             <span>{ppt.nav.footer}</span>
-            <span>{ppt.nav.slideOf} {currentSlide + 1} / {totalSlides}</span>
           </div>
 
         </div>
@@ -711,7 +704,7 @@ export default function PresentationDeckView({ onClose, lang = 'es', setLang }) 
                 cursor: 'pointer',
                 transition: 'all 0.2s ease'
               }}
-              title={`Diapositiva ${idx + 1}: ${slideTitles[idx]}`}
+              title={slideTitles[idx]}
             />
           ))}
         </div>
